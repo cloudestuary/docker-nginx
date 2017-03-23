@@ -7,7 +7,10 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
     && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
-ADD conf/default.tmpl /etc/nginx/conf.d/default.tmpl
+ADD conf/default.tmpl /opt/default.tmpl
 
-ENTRYPOINT dockerize -template /etc/nginx/conf.d/default.tmpl:/etc/nginx/conf.d/default.conf
-CMD ["nginx", "-g", "daemon off;"]
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+
+ENTRYPOINT dockerize -template /opt/default.tmpl:/etc/nginx/conf.d/default.conf -stdout /var/log/nginx/access.log -stderr /var/log/nginx/error.log
+
+CMD nginx
