@@ -9,5 +9,5 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 
 ADD conf/default.tmpl /etc/nginx/conf.d/default.tmpl
 
-ENTRYPOINT dockerize -template /etc/nginx/conf.d/default.tmpl:/etc/nginx/conf.d/default
+ENTRYPOINT dockerize -template /etc/nginx/conf.d/default.tmpl:/etc/nginx/conf.d/default.conf
 CMD ["nginx", "-g", "daemon off;"]
