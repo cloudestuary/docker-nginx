@@ -5,8 +5,8 @@ server {
     root {{ .Env.DOCUMENT_ROOT }};
     index {{ .Env.INDEX_FILE }};
 
-    # Make site accessible from http://localhost/
     server_name _;
+    client_max_body_size {{ .Env.CLIENT_MAX_BODY_SIZE }};
 
     location ~ \.php$ {
         try_files $uri =404;
